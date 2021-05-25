@@ -4,6 +4,8 @@ import { storage, db } from "./Firebase";
 import firebase from "firebase";
 import "./ImageUpload.css";
 
+const fileUpload = document.getElementById("imageUpload__file");
+
 const ImageUpload = ({ username }) => {
   const [image, setImage] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -11,12 +13,25 @@ const ImageUpload = ({ username }) => {
 
   const imageHandler = (event) => {
     const file = event.target.files[0];
-    if (file) {
+    const fileType = file.type;
+    const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+    if (validImageTypes.includes(fileType)) {
       setImage(file);
+    } else {
+      alert("Please upload a image having .png/.jpeg/.gif");
+      fileUpload.value = null;
     }
   };
 
   const uploadHandler = () => {
+    if (caption.length === 0) {
+      alert("Please Enter a valid Caption");
+      return;
+    }
+    if (image === null) {
+      alert("Please Upload a file of .png/.jpeg/.gif to continue");
+      return;
+    }
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
@@ -64,7 +79,7 @@ const ImageUpload = ({ username }) => {
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
         />
-        <input type="file" onChange={imageHandler} />
+        <input type="file" onChange={imageHandler} id="imageUpload__file" />
         <Button className="imageUpload__button" onClick={uploadHandler}>
           Upload
         </Button>
