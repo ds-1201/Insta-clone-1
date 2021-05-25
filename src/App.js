@@ -68,6 +68,14 @@ function App() {
 
   const submitSignUp = (event) => {
     event.preventDefault();
+    if (username.length === 0) {
+      alert("Please Enter a valid username");
+      return;
+    }
+    if (password.length < 6) {
+      alert("Please Enter a password of minimum 6 characters");
+      return;
+    }
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authUser) => {
@@ -82,6 +90,10 @@ function App() {
 
   const submitSignIn = (event) => {
     event.preventDefault();
+    if (password.length < 6) {
+      alert("Please Enter a password of minimum 6 characters");
+      return;
+    }
     auth
       .signInWithEmailAndPassword(email, password)
       .catch((error) => alert(error.message));
@@ -189,7 +201,7 @@ function App() {
         ))}
       </div>
 
-      {user?.displayName && <ImageUpload username={user.displayName} />}
+      {user && <ImageUpload username={user.displayName} />}
     </div>
   );
 }
