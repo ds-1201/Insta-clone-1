@@ -1,10 +1,24 @@
 .imageUpload {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+}
+.imageUpload__control {
+  max-width: 500px;
   display: flex;
   flex-direction: column;
-  width: 60%;
   margin: 10px auto;
 }
-
 .imageUpload__progress {
   width: 100%;
+  margin-bottom: 10px;
+}
+
+.imageUpload__caption {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.imageUpload__caption:focus {
+  outline: lightgray;
 }

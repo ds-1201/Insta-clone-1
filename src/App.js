@@ -75,6 +75,9 @@ function App() {
       })
       .catch((error) => alert(error.message));
     setOpen(false);
+    setEmail("");
+    setPassword("");
+    setUsername("");
   };
 
   const submitSignIn = (event) => {
@@ -83,6 +86,8 @@ function App() {
       .signInWithEmailAndPassword(email, password)
       .catch((error) => alert(error.message));
     setOpenLogin(false);
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -184,13 +189,7 @@ function App() {
         ))}
       </div>
 
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ) : (
-        <h3 className="app__imgUpload">
-          <center>Sorry you need to login</center>{" "}
-        </h3>
-      )}
+      {user?.displayName && <ImageUpload username={user.displayName} />}
     </div>
   );
 }

@@ -12,7 +12,7 @@ const Post = (props) => {
       .collection("posts")
       .doc(props.postId)
       .collection("comments")
-      .orderBy("timeststamp")
+      .orderBy("timestamp")
       .onSnapshot((snapshot) => {
         const datas = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -48,7 +48,7 @@ const Post = (props) => {
       </div>
       <img className="post__img" src={props.user.imgURL} alt="" />
       <div className="post__comments">
-        <p className="post__text">
+        <p className="post__caption">
           <strong>{props.user.username} :</strong> {props.user.caption}
         </p>
         {comments.map((comment) => (
@@ -57,23 +57,27 @@ const Post = (props) => {
           </p>
         ))}
       </div>
-      <form className="post__form">
-        <input
-          type="text"
-          className="post__input"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="Add a comment..."
-        />
-        <button
-          type="submit"
-          disabled={!props.username && !comment}
-          className="post__button"
-          onClick={postComment}
-        >
-          Post
-        </button>
-      </form>
+      <div className="post__commentForm">
+        {props.loggedInUser && (
+          <form className="post__form">
+            <input
+              type="text"
+              className="post__input"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Add a comment..."
+            />
+            <button
+              type="submit"
+              disabled={!comment}
+              className="post__button"
+              onClick={postComment}
+            >
+              Post
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 };

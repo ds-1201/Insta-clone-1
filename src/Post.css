@@ -31,9 +31,9 @@
   background-color: white;
 }
 
-.post__text {
+.post__caption {
   font-weight: normal;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 .post__form {
